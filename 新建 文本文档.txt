@@ -1,0 +1,215 @@
+/* File Structure */
+- index.html (Homepage)
+- products.html (Products Page)
+- diy.html (DIY Design Page)
+- cart.html (Shopping Cart Page)
+- checkout.html (Checkout Page)
+- styles.css (Styles File)
+- scripts.js (JavaScript File)
+
+/* 1. index.html - Homepage */
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Art Bag Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>DIY Art Bag Store</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="diy.html">DIY Design</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home">
+        <div class="hero">
+            <h2>Design Your Unique Bag</h2>
+            <button onclick="location.href='products.html'">Start Designing</button>
+        </div>
+    </section>
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+/* 2. products.html - Products Page */
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>DIY Art Bag Store</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="diy.html">DIY Design</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="products">
+        <div class="product-container" id="product-list">
+            <!-- JavaScript will dynamically populate the product list -->
+        </div>
+    </section>
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+/* 3. diy.html - DIY Design Page */
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Design Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>DIY Art Bag Store</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="diy.html">DIY Design</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="diy">
+        <h2>DIY Your Bag</h2>
+        <div class="diy-container">
+            <label for="color">Choose a Color:</label>
+            <input type="color" id="colorPicker" onchange="updateBagColor()" value="#f54242">
+            <div id="bagPreview" class="bag-preview">
+                <img src="images/blank_bag.png" id="bagImage">
+            </div>
+        </div>
+    </section>
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+/* 4. cart.html - Shopping Cart Page */
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>DIY Art Bag Store</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="diy.html">DIY Design</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="cart">
+        <h2>Shopping Cart</h2>
+        <div id="cartItems">
+            <!-- JavaScript will dynamically populate cart items -->
+        </div>
+        <button onclick="checkout()">Checkout</button>
+    </section>
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+/* 5. styles.css - Styles File */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+.hero {
+    text-align: center;
+    padding: 50px;
+    background: #f54242;
+    color: #fff;
+}
+
+/* 6. scripts.js - JavaScript File */
+
+// Product Data
+const products = [
+    { name: 'Hand-painted Bag 1', price: '$30', image: 'images/bag1.png' },
+    { name: 'Colorful Bag 2', price: '$35', image: 'images/bag2.png' },
+    // More products...
+];
+
+// Dynamically Load Product List
+document.addEventListener('DOMContentLoaded', function() {
+    const productList = document.getElementById('product-list');
+    if (productList) {
+        products.forEach(product => {
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('product');
+            productDiv.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>${product.price}</p>
+                <button onclick="addToCart('${product.name}')">Add to Cart</button>
+            `;
+            productList.appendChild(productDiv);
+        });
+    }
+});
+
+// Cart Functionality
+let cart = [];
+function addToCart(productName) {
+    cart.push(productName);
+    alert(`${productName} has been added to the cart`);
+}
+
+function updateBagColor() {
+    const color = document.getElementById('colorPicker').value;
+    document.getElementById('bagImage').style.backgroundColor = color;
+}
+
+function checkout() {
+    alert('Checkout functionality coming soon');
+}
